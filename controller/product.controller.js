@@ -93,6 +93,27 @@ const getProductById = async (req, res) => {
       })
    }
 }
+const removeProduct = async (req, res) => {
+   try {
+      const { id } = req.params;
+      let deletedItem = await ProductModel.findOneAndDelete({ _id: id }, { new: true })
+      if (!deletedItem) {
+         return res.status(404).send({
+            code: 404,
+            message: "Item Not found"
+         })
+      }
+      return res.send({
+         code: 200,
+         message: "Item Removed Succesfully"
+      })
+   } catch (error) {
+      return res.status(500).send({
+         code: 500,
+         message: error.error
+      })
+   }
+}
 const getProds = async (req, res) => {
    let products = await ProductModel.find()
    return res.send(products)
@@ -102,5 +123,6 @@ module.exports = {
    getProds,
    addProduct,
    getProductById,
-   updateProd
+   updateProd,
+   removeProduct
 }
