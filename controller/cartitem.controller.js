@@ -98,8 +98,10 @@ const getUserCart = async (req, res) => {
     }
     catch (err) {
         console.log(err);
+        let cartItem = []
         return res.send({
-            err
+            cartItem: cartItem,
+            message: err.error.message
         })
     }
 }
