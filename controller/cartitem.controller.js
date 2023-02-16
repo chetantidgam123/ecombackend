@@ -87,7 +87,7 @@ const getUserCart = async (req, res) => {
     try {
         let Bearer = req.headers["authorization"]
         let splittoken = Bearer.split(" ")
-        var token = splittoken[1].replace('"', '');
+        var token = splittoken[1]?.replace('"', '');
         var decode = jwt.verify(token, token_secret)
         if (decode) {
             let userId = decode.userId.toString()
@@ -158,7 +158,6 @@ const updateCartQty = async (req, res) => {
 const clearCart = async (req, res) => {
     try {
         let Bearer = req.headers["authorization"]
-        console.log(Bearer);
         let splittoken = Bearer.split(" ")
         let token = splittoken[1].replace('"', '');
         var decode = jwt.verify(token, token_secret)
